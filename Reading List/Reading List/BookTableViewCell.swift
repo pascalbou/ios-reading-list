@@ -10,10 +10,23 @@ import UIKit
 
 class BookTableViewCell: UITableViewCell {
 
+    var book: Book?
+    var delegate: BookTableViewCellDelegate?
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readUnreadButton: UIButton!
     
     @IBAction func readUnreadAction(_ sender: Any) {
+        delegate?.toggleHasBeenRead(for: self)
+    }
+    
+    func updateViews() {
+        titleLabel.text = book?.title
+        if book?.hasBeenRead == true {
+            readUnreadButton.setImage(UIImage(named: "checked"), for: .normal)
+        } else {
+            readUnreadButton.setImage(UIImage(named: "unchecked"), for: .normal)
+        }
     }
     
     
